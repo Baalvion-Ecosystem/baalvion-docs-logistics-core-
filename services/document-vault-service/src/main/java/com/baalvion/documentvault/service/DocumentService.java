@@ -17,7 +17,7 @@ import com.baalvion.documentvault.repository.DocumentRepository;
 @Service("documentService")
 public class DocumentService {
 
-	Logger logger = LoggerFactory.getLogger(DocumentService.class);
+	private static final Logger log = LoggerFactory.getLogger(DocumentService.class);
 
 	private final DocumentRepository documentRepository;
 
@@ -27,46 +27,46 @@ public class DocumentService {
 	}
 
 	public DocumentResponse uploadDocument(DocumentRequest request) {
-		logger.info("Uploading document: {}", request.getName());
+		log.info("Uploading document: {}", request.getName());
 
 		Document document = Document.builder().name(request.getName()).type(request.getType())
 				.storagePath(request.getStoragePath()).uploadedBy(request.getUploadedBy()).status(DocumentStatus.ACTIVE)
 				.build();
 
 		Document saved = documentRepository.save(document);
-		logger.info("Document saved with id: {}", saved.getId());
+		log.info("Document saved with id: {}", saved.getId());
 
 		return mapToResponse(saved);
 	}
 
-	public DocumentResponse getDocument(UUID id) {
-		logger.info("Fetching document with id: {}", id);
+	public DocumentResponse getDocument(UUID documentId) {
+		log.info("Fetching document with id: {}", documentId);
 
-		Document document = documentRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Document not found with id: " + id));
+		Document document = documentRepository.findByDocumentId(documentId)
+				.orElseThrow(() -> new RuntimeException("Document not found with id: " + documentId));
 
 		return mapToResponse(document);
 	}
 
 	public List<DocumentResponse> getAllDocuments() {
-		logger.info("Fetching all documents");
+		log.info("Fetching all documents");
 
 		return documentRepository.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
 	}
 
-	public void deleteDocument(UUID id) {
-		logger.info("Deleting document with id: {}", id);
+	public void deleteDocument(UUID documentId) {
+		log.info("Deleting document with id: {}", documentId);
 
-		Document document = documentRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Document not found with id: " + id));
+		Document document = documentRepository.findByDocumentId(documentId)
+				.orElseThrow(() -> new RuntimeException("Document not found with id: " + documentId));
 
 		document.setStatus(DocumentStatus.DELETED);
 		documentRepository.save(document);
-		logger.info("Document deleted with id: {}", id);
+		log.info("Document deleted with id: {}", documentId);
 	}
 
 	private DocumentResponse mapToResponse(Document document) {
-		return DocumentResponse.builder().id(document.getId()).name(document.getName()).type(document.getType())
+		return DocumentResponse.builder().documentId(document.getDocumentId()).name(document.getName()).type(document.getType())
 				.storagePath(document.getStoragePath()).uploadedBy(document.getUploadedBy())
 				.status(document.getStatus()).createdAt(document.getCreatedAt()).updatedAt(document.getUpdatedAt())
 				.build();

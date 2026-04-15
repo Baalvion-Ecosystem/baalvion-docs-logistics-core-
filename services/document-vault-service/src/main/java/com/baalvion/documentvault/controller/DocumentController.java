@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/v1/documents")
 public class DocumentController {
 
-	Logger logger = LoggerFactory.getLogger(DocumentController.class);
+	private static final Logger log = LoggerFactory.getLogger(DocumentController.class);
 
 	private final DocumentService documentService;
 
@@ -36,28 +36,28 @@ public class DocumentController {
 
 	@PostMapping
 	public ResponseEntity<DocumentResponse> uploadDocument(@Valid @RequestBody DocumentRequest request) {
-		logger.info("POST /api/v1/documents");
+		log.info("POST /api/v1/documents");
 		DocumentResponse response = documentService.uploadDocument(request);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<DocumentResponse> getDocument(@PathVariable UUID id) {
-		logger.info("GET /api/v1/documents/{}", id);
+		log.info("GET /api/v1/documents/{}", id);
 		DocumentResponse response = documentService.getDocument(id);
 		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping
 	public ResponseEntity<List<DocumentResponse>> getAllDocuments() {
-		logger.info("GET /api/v1/documents");
+		log.info("GET /api/v1/documents");
 		List<DocumentResponse> response = documentService.getAllDocuments();
 		return ResponseEntity.ok(response);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteDocument(@PathVariable UUID id) {
-		logger.info("DELETE /api/v1/documents/{}", id);
+		log.info("DELETE /api/v1/documents/{}", id);
 		documentService.deleteDocument(id);
 		return ResponseEntity.noContent().build();
 	}

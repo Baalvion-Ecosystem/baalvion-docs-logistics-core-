@@ -1,5 +1,6 @@
 package com.baalvion.documentvault.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -16,11 +17,19 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "documents")
-public class Document {
+public class Document implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2100758101947592121L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(name = "document_id", nullable = false)
+	private UUID documentId;
 
 	@Column(nullable = false)
 	private String name;
@@ -47,9 +56,10 @@ public class Document {
 	public Document() {
 	}
 
-	public Document(UUID id, String name, String type, String storagePath, String uploadedBy, DocumentStatus status,
-			LocalDateTime createdAt, LocalDateTime updatedAt) {
+	public Document(Long id, UUID documentId, String name, String type, String storagePath, String uploadedBy,
+			DocumentStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		this.id = id;
+		this.documentId = documentId;
 		this.name = name;
 		this.type = type;
 		this.storagePath = storagePath;
@@ -64,7 +74,8 @@ public class Document {
 	}
 
 	public static class Builder {
-		private UUID id;
+		private Long id;
+		private UUID documentId;
 		private String name;
 		private String type;
 		private String storagePath;
@@ -73,8 +84,13 @@ public class Document {
 		private LocalDateTime createdAt;
 		private LocalDateTime updatedAt;
 
-		public Builder id(UUID id) {
+		public Builder id(Long id) {
 			this.id = id;
+			return this;
+		}
+
+		public Builder documentId(UUID documentId) {
+			this.documentId = documentId;
 			return this;
 		}
 
@@ -114,16 +130,24 @@ public class Document {
 		}
 
 		public Document build() {
-			return new Document(id, name, type, storagePath, uploadedBy, status, createdAt, updatedAt);
+			return new Document(id, documentId, name, type, storagePath, uploadedBy, status, createdAt, updatedAt);
 		}
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public UUID getDocumentId() {
+		return documentId;
+	}
+
+	public void setDocumentId(UUID documentId) {
+		this.documentId = documentId;
 	}
 
 	public String getName() {

@@ -7,7 +7,7 @@ import com.baalvion.documentvault.domain.DocumentStatus;
 
 public class DocumentResponse {
 
-	private UUID id;
+	private UUID documentId;
 	private String name;
 	private String type;
 	private String storagePath;
@@ -19,9 +19,9 @@ public class DocumentResponse {
 	public DocumentResponse() {
 	}
 
-	public DocumentResponse(UUID id, String name, String type, String storagePath, String uploadedBy,
+	public DocumentResponse(UUID documentId, String name, String type, String storagePath, String uploadedBy,
 			DocumentStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
-		this.id = id;
+		this.documentId = documentId;
 		this.name = name;
 		this.type = type;
 		this.storagePath = storagePath;
@@ -36,7 +36,7 @@ public class DocumentResponse {
 	}
 
 	public static class Builder {
-		private UUID id;
+		private UUID documentId;
 		private String name;
 		private String type;
 		private String storagePath;
@@ -45,8 +45,8 @@ public class DocumentResponse {
 		private LocalDateTime createdAt;
 		private LocalDateTime updatedAt;
 
-		public Builder id(UUID id) {
-			this.id = id;
+		public Builder documentId(UUID documentId) {
+			this.documentId = documentId;
 			return this;
 		}
 
@@ -86,16 +86,16 @@ public class DocumentResponse {
 		}
 
 		public DocumentResponse build() {
-			return new DocumentResponse(id, name, type, storagePath, uploadedBy, status, createdAt, updatedAt);
+			return new DocumentResponse(documentId, name, type, storagePath, uploadedBy, status, createdAt, updatedAt);
 		}
 	}
 
-	public UUID getId() {
-		return id;
+	public UUID getDocumentId() {
+		return documentId;
 	}
 
-	public void setId(UUID id) {
-		this.id = id;
+	public void setDocumentId(UUID documentId) {
+		this.documentId = documentId;
 	}
 
 	public String getName() {
