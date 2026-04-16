@@ -12,6 +12,7 @@ import com.baalvion.documentversioning.domain.DocumentVersion;
 import com.baalvion.documentversioning.domain.VersionStatus;
 import com.baalvion.documentversioning.dto.DocumentVersionRequest;
 import com.baalvion.documentversioning.dto.DocumentVersionResponse;
+import com.baalvion.documentversioning.exception.ResourceNotFoundException;
 import com.baalvion.documentversioning.repository.DocumentVersionRepository;
 
 @Service("documentVersionService")
@@ -55,7 +56,7 @@ public class DocumentVersionServiceImpl implements DocumentVersionService {
 		log.info("Fetching latest version for documentId: {}", documentId);
 
 		DocumentVersion version = versionRepository.findTopByDocumentIdOrderByVersionNumberDesc(documentId)
-				.orElseThrow(() -> new RuntimeException("No versions found for documentId: " + documentId));
+				.orElseThrow(() -> new ResourceNotFoundException("Version", "documentId", documentId));
 
 		return mapToResponse(version);
 	}
@@ -65,7 +66,7 @@ public class DocumentVersionServiceImpl implements DocumentVersionService {
 		log.info("Fetching version with versionId: {}", versionId);
 
 		DocumentVersion version = versionRepository.findByDocumentVersionsId(versionId)
-				.orElseThrow(() -> new RuntimeException("Version not found with versionId: " + versionId));
+				.orElseThrow(() -> new ResourceNotFoundException("Version", "versionId", versionId));
 
 		return mapToResponse(version);
 	}

@@ -12,6 +12,7 @@ import com.baalvion.documentvault.domain.Document;
 import com.baalvion.documentvault.domain.DocumentStatus;
 import com.baalvion.documentvault.dto.DocumentRequest;
 import com.baalvion.documentvault.dto.DocumentResponse;
+import com.baalvion.documentvault.exception.ResourceNotFoundException;
 import com.baalvion.documentvault.repository.DocumentRepository;
 
 @Service("documentService")
@@ -45,7 +46,7 @@ public class DocumentServiceImpl implements DocumentService {
 		log.info("Fetching document with documentId: {}", documentId);
 
 		Document document = documentRepository.findByDocumentId(documentId)
-				.orElseThrow(() -> new RuntimeException("Document not found with documentId: " + documentId));
+				.orElseThrow(() -> new ResourceNotFoundException("Document", "documentId", documentId));
 
 		return mapToResponse(document);
 	}
@@ -62,7 +63,7 @@ public class DocumentServiceImpl implements DocumentService {
 		log.info("Deleting document with documentId: {}", documentId);
 
 		Document document = documentRepository.findByDocumentId(documentId)
-				.orElseThrow(() -> new RuntimeException("Document not found with documentId: " + documentId));
+				.orElseThrow(() -> new ResourceNotFoundException("Document", "documentId", documentId));
 
 		document.setStatus(DocumentStatus.DELETED);
 		documentRepository.save(document);

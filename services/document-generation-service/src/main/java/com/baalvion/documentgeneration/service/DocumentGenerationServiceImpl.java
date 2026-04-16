@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.baalvion.documentgeneration.domain.DocumentTemplate;
 import com.baalvion.documentgeneration.dto.DocumentGenerationRequest;
 import com.baalvion.documentgeneration.dto.DocumentGenerationResponse;
+import com.baalvion.documentgeneration.exception.ResourceNotFoundException;
 import com.baalvion.documentgeneration.repository.DocumentTemplateRepository;
 
 @Service("documentGenerationService")
@@ -29,8 +30,8 @@ public class DocumentGenerationServiceImpl implements DocumentGenerationService 
 		log.info("Generating document for documentTemplateId: {}", request.getDocumentTemplateId());
 
 		DocumentTemplate template = templateRepository.findByDocumentTemplateId(request.getDocumentTemplateId())
-				.orElseThrow(() -> new RuntimeException(
-						"Template not found with documentTemplateId: " + request.getDocumentTemplateId()));
+				.orElseThrow(() -> new ResourceNotFoundException("Document Template", "documentTemplateId",
+						request.getDocumentTemplateId()));
 
 		String generatedContent = processTemplate(template.getTemplateContent(), request.getPlaceholders());
 
@@ -46,7 +47,7 @@ public class DocumentGenerationServiceImpl implements DocumentGenerationService 
 		log.info("Fetching template with documentTemplateId: {}", documentTemplateId);
 
 		DocumentTemplate template = templateRepository.findByDocumentTemplateId(documentTemplateId).orElseThrow(
-				() -> new RuntimeException("Template not found with documentTemplateId: " + documentTemplateId));
+				() -> new ResourceNotFoundException("Document Template", "documentTemplateId", documentTemplateId));
 
 		return DocumentGenerationResponse.builder().documentTemplateId(template.getDocumentTemplateId())
 				.generatedBy(template.getCreatedBy()).generatedContent(template.getTemplateContent())

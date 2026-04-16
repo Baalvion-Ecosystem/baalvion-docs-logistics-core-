@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baalvion.documentvault.dto.DocumentRequest;
 import com.baalvion.documentvault.dto.DocumentResponse;
+import com.baalvion.documentvault.exception.ApiResponse;
 import com.baalvion.documentvault.service.DocumentService;
 
 import jakarta.validation.Valid;
@@ -30,35 +31,35 @@ public class DocumentController {
 	private final DocumentService documentService;
 
 	public DocumentController(DocumentService documentService) {
-		super();
 		this.documentService = documentService;
 	}
 
 	@PostMapping
-	public ResponseEntity<DocumentResponse> uploadDocument(@Valid @RequestBody DocumentRequest request) {
+	public ResponseEntity<ApiResponse<DocumentResponse>> uploadDocument(@Valid @RequestBody DocumentRequest request) {
 		log.info("POST /api/v1/documents");
 		DocumentResponse response = documentService.uploadDocument(request);
-		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(ApiResponse.success("Document uploaded successfully", response));
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<DocumentResponse> getDocument(@PathVariable UUID id) {
+	public ResponseEntity<ApiResponse<DocumentResponse>> getDocument(@PathVariable UUID id) {
 		log.info("GET /api/v1/documents/{}", id);
 		DocumentResponse response = documentService.getDocument(id);
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(ApiResponse.success("Document fetched successfully", response));
 	}
 
 	@GetMapping
-	public ResponseEntity<List<DocumentResponse>> getAllDocuments() {
+	public ResponseEntity<ApiResponse<List<DocumentResponse>>> getAllDocuments() {
 		log.info("GET /api/v1/documents");
 		List<DocumentResponse> response = documentService.getAllDocuments();
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(ApiResponse.success("Documents fetched successfully", response));
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteDocument(@PathVariable UUID id) {
+	public ResponseEntity<ApiResponse<Void>> deleteDocument(@PathVariable UUID id) {
 		log.info("DELETE /api/v1/documents/{}", id);
 		documentService.deleteDocument(id);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok(ApiResponse.success("Document deleted successfully", null));
 	}
 }

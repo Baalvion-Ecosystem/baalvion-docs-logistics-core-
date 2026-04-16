@@ -13,6 +13,7 @@ import com.baalvion.ocrprocessing.domain.OcrJob;
 import com.baalvion.ocrprocessing.domain.OcrStatus;
 import com.baalvion.ocrprocessing.dto.OcrJobRequest;
 import com.baalvion.ocrprocessing.dto.OcrJobResponse;
+import com.baalvion.ocrprocessing.exception.ResourceNotFoundException;
 import com.baalvion.ocrprocessing.repository.OcrJobRepository;
 
 @Service("ocrjobService")
@@ -44,7 +45,7 @@ public class OcrJobServiceImpl implements OcrjobService {
 		log.info("Fetching OCR job status for jobId: {}", jobId);
 
 		OcrJob job = ocrJobRepository.findByOcrjobId(jobId)
-				.orElseThrow(() -> new RuntimeException("OCR job not found with jobId: " + jobId));
+				.orElseThrow(() -> new ResourceNotFoundException("OCR job", "jobId", jobId));
 
 		return mapToResponse(job);
 	}
@@ -54,7 +55,7 @@ public class OcrJobServiceImpl implements OcrjobService {
 		log.info("Processing OCR job with jobId: {}", jobId);
 
 		OcrJob job = ocrJobRepository.findByOcrjobId(jobId)
-				.orElseThrow(() -> new RuntimeException("OCR job not found with jobId: " + jobId));
+				.orElseThrow(() -> new ResourceNotFoundException("OCR job", "jobId", jobId));
 
 		job.setStatus(OcrStatus.PROCESSING);
 		ocrJobRepository.save(job);

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baalvion.documentgeneration.dto.DocumentGenerationRequest;
 import com.baalvion.documentgeneration.dto.DocumentGenerationResponse;
+import com.baalvion.documentgeneration.exception.ApiResponse;
 import com.baalvion.documentgeneration.service.DocumentGenerationService;
 
 import jakarta.validation.Valid;
@@ -32,17 +33,18 @@ public class DocumentGenerationController {
 	}
 
 	@PostMapping
-	public ResponseEntity<DocumentGenerationResponse> generateDocument(
+	public ResponseEntity<ApiResponse<DocumentGenerationResponse>> generateDocument(
 			@Valid @RequestBody DocumentGenerationRequest request) {
 		log.info("POST /api/v1/documents/generate");
 		DocumentGenerationResponse response = documentGenerationService.generateDocument(request);
-		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(ApiResponse.success("Document generated successfully", response));
 	}
 
 	@GetMapping("/templates/{templateId}")
-	public ResponseEntity<DocumentGenerationResponse> getTemplate(@PathVariable UUID templateId) {
+	public ResponseEntity<ApiResponse<DocumentGenerationResponse>> getTemplate(@PathVariable UUID templateId) {
 		log.info("GET /api/v1/documents/generate/templates/{}", templateId);
 		DocumentGenerationResponse response = documentGenerationService.getTemplate(templateId);
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(ApiResponse.success("Template fetched successfully", response));
 	}
 }

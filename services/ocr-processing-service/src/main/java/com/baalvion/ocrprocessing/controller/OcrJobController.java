@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baalvion.ocrprocessing.dto.OcrJobRequest;
 import com.baalvion.ocrprocessing.dto.OcrJobResponse;
+import com.baalvion.ocrprocessing.exception.ApiResponse;
 import com.baalvion.ocrprocessing.service.OcrjobService;
 
 import jakarta.validation.Valid;
@@ -24,43 +25,40 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/v1/ocr")
 public class OcrJobController {
 
-    private static final Logger log = LoggerFactory.getLogger(OcrJobController.class);
+	private static final Logger log = LoggerFactory.getLogger(OcrJobController.class);
 
-    private final OcrjobService ocrJobService;
+	private final OcrjobService ocrJobService;
 
-    public OcrJobController(OcrjobService ocrJobService) {
-        this.ocrJobService = ocrJobService;
-    }
+	public OcrJobController(OcrjobService ocrJobService) {
+		this.ocrJobService = ocrJobService;
+	}
 
-    @PostMapping("/process")
-    public ResponseEntity<OcrJobResponse> submitOcrJob(
-            @Valid @RequestBody OcrJobRequest request) {
-        log.info("POST /api/v1/ocr/process");
-        OcrJobResponse response = ocrJobService.submitOcrJob(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+	@PostMapping("/process")
+	public ResponseEntity<ApiResponse<OcrJobResponse>> submitOcrJob(@Valid @RequestBody OcrJobRequest request) {
+		log.info("POST /api/v1/ocr/process");
+		OcrJobResponse response = ocrJobService.submitOcrJob(request);
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(ApiResponse.success("OCR job submitted successfully", response));
+	}
 
-    @GetMapping("/status/{jobId}")
-    public ResponseEntity<OcrJobResponse> getJobStatus(
-            @PathVariable UUID jobId) {
-        log.info("GET /api/v1/ocr/status/{}", jobId);
-        OcrJobResponse response = ocrJobService.getJobStatus(jobId);
-        return ResponseEntity.ok(response);
-    }
+	@GetMapping("/status/{jobId}")
+	public ResponseEntity<ApiResponse<OcrJobResponse>> getJobStatus(@PathVariable UUID jobId) {
+		log.info("GET /api/v1/ocr/status/{}", jobId);
+		OcrJobResponse response = ocrJobService.getJobStatus(jobId);
+		return ResponseEntity.ok(ApiResponse.success("OCR job status fetched successfully", response));
+	}
 
-    @PostMapping("/process/{jobId}")
-    public ResponseEntity<OcrJobResponse> processJob(
-            @PathVariable UUID jobId) {
-        log.info("POST /api/v1/ocr/process/{}", jobId);
-        OcrJobResponse response = ocrJobService.processJob(jobId);
-        return ResponseEntity.ok(response);
-    }
+	@PostMapping("/process/{jobId}")
+	public ResponseEntity<ApiResponse<OcrJobResponse>> processJob(@PathVariable UUID jobId) {
+		log.info("POST /api/v1/ocr/process/{}", jobId);
+		OcrJobResponse response = ocrJobService.processJob(jobId);
+		return ResponseEntity.ok(ApiResponse.success("OCR job processed successfully", response));
+	}
 
-    @GetMapping("/document/{documentId}")
-    public ResponseEntity<List<OcrJobResponse>> getJobsByDocumentId(
-            @PathVariable UUID documentId) {
-        log.info("GET /api/v1/ocr/document/{}", documentId);
-        List<OcrJobResponse> response = ocrJobService.getJobsByDocumentId(documentId);
-        return ResponseEntity.ok(response);
-    }
+	@GetMapping("/document/{documentId}")
+	public ResponseEntity<ApiResponse<List<OcrJobResponse>>> getJobsByDocumentId(@PathVariable UUID documentId) {
+		log.info("GET /api/v1/ocr/document/{}", documentId);
+		List<OcrJobResponse> response = ocrJobService.getJobsByDocumentId(documentId);
+		return ResponseEntity.ok(ApiResponse.success("OCR jobs fetched successfully", response));
+	}
 }

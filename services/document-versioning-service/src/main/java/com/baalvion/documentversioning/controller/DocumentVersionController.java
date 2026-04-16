@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baalvion.documentversioning.dto.DocumentVersionRequest;
 import com.baalvion.documentversioning.dto.DocumentVersionResponse;
+import com.baalvion.documentversioning.exception.ApiResponse;
 import com.baalvion.documentversioning.service.DocumentVersionService;
 
 import jakarta.validation.Valid;
@@ -33,30 +34,32 @@ public class DocumentVersionController {
 	}
 
 	@PostMapping
-	public ResponseEntity<DocumentVersionResponse> createVersion(@Valid @RequestBody DocumentVersionRequest request) {
+	public ResponseEntity<ApiResponse<DocumentVersionResponse>> createVersion(
+			@Valid @RequestBody DocumentVersionRequest request) {
 		log.info("POST /api/v1/versions");
 		DocumentVersionResponse response = versionService.createVersion(request);
-		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(ApiResponse.success("Version created successfully", response));
 	}
 
 	@GetMapping("/{documentId}")
-	public ResponseEntity<List<DocumentVersionResponse>> getAllVersions(@PathVariable UUID documentId) {
+	public ResponseEntity<ApiResponse<List<DocumentVersionResponse>>> getAllVersions(@PathVariable UUID documentId) {
 		log.info("GET /api/v1/versions/{}", documentId);
 		List<DocumentVersionResponse> response = versionService.getAllVersions(documentId);
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(ApiResponse.success("Versions fetched successfully", response));
 	}
 
 	@GetMapping("/{documentId}/latest")
-	public ResponseEntity<DocumentVersionResponse> getLatestVersion(@PathVariable UUID documentId) {
+	public ResponseEntity<ApiResponse<DocumentVersionResponse>> getLatestVersion(@PathVariable UUID documentId) {
 		log.info("GET /api/v1/versions/{}/latest", documentId);
 		DocumentVersionResponse response = versionService.getLatestVersion(documentId);
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(ApiResponse.success("Latest version fetched successfully", response));
 	}
 
 	@GetMapping("/detail/{versionId}")
-	public ResponseEntity<DocumentVersionResponse> getVersion(@PathVariable UUID versionId) {
+	public ResponseEntity<ApiResponse<DocumentVersionResponse>> getVersion(@PathVariable UUID versionId) {
 		log.info("GET /api/v1/versions/detail/{}", versionId);
 		DocumentVersionResponse response = versionService.getVersion(versionId);
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(ApiResponse.success("Version fetched successfully", response));
 	}
 }
