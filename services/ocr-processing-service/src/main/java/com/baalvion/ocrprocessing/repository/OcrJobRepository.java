@@ -1,19 +1,23 @@
 package com.baalvion.ocrprocessing.repository;
 
-import com.baalvion.ocrprocessing.domain.OcrJob;
-import com.baalvion.ocrprocessing.domain.OcrStatus;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.UUID;
+import com.baalvion.ocrprocessing.domain.OcrJob;
+import com.baalvion.ocrprocessing.domain.OcrStatus;
 
 @Repository
-public interface OcrJobRepository extends JpaRepository<OcrJob, UUID> {
+public interface OcrJobRepository extends JpaRepository<OcrJob, Long> {
 
-    List<OcrJob> findByDocumentId(UUID documentId);
+	Optional<OcrJob> findByOcrjobId(UUID ocrjobId);
 
-    List<OcrJob> findByStatus(OcrStatus status);
+	List<OcrJob> findByDocumentId(UUID documentId);
 
-    List<OcrJob> findBySubmittedBy(String submittedBy);
+	List<OcrJob> findByStatus(OcrStatus status);
+
+	List<OcrJob> findBySubmittedBy(String submittedBy);
 }
