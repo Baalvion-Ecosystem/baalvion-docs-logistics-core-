@@ -18,10 +18,13 @@ import com.baalvion.documentgeneration.dto.DocumentGenerationResponse;
 import com.baalvion.documentgeneration.exception.ApiResponse;
 import com.baalvion.documentgeneration.service.DocumentGenerationService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/documents/generate")
+@Tag(name = "Document Generation", description = "APIs for generating documents from templates")
 public class DocumentGenerationController {
 
 	private static final Logger log = LoggerFactory.getLogger(DocumentGenerationController.class);
@@ -32,6 +35,7 @@ public class DocumentGenerationController {
 		this.documentGenerationService = documentGenerationService;
 	}
 
+	@Operation(summary = "Generate a document from template")
 	@PostMapping
 	public ResponseEntity<ApiResponse<DocumentGenerationResponse>> generateDocument(
 			@Valid @RequestBody DocumentGenerationRequest request) {
@@ -41,6 +45,7 @@ public class DocumentGenerationController {
 				.body(ApiResponse.success("Document generated successfully", response));
 	}
 
+	@Operation(summary = "Get template by ID")
 	@GetMapping("/templates/{templateId}")
 	public ResponseEntity<ApiResponse<DocumentGenerationResponse>> getTemplate(@PathVariable UUID templateId) {
 		log.info("GET /api/v1/documents/generate/templates/{}", templateId);

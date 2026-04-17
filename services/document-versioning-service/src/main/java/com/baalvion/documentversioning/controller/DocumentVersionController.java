@@ -19,10 +19,13 @@ import com.baalvion.documentversioning.dto.DocumentVersionResponse;
 import com.baalvion.documentversioning.exception.ApiResponse;
 import com.baalvion.documentversioning.service.DocumentVersionService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/versions")
+@Tag(name = "Document Versioning", description = "APIs for managing document versions")
 public class DocumentVersionController {
 
 	private static final Logger log = LoggerFactory.getLogger(DocumentVersionController.class);
@@ -33,6 +36,7 @@ public class DocumentVersionController {
 		this.versionService = versionService;
 	}
 
+	@Operation(summary = "Create a new document version")
 	@PostMapping
 	public ResponseEntity<ApiResponse<DocumentVersionResponse>> createVersion(
 			@Valid @RequestBody DocumentVersionRequest request) {
@@ -42,6 +46,7 @@ public class DocumentVersionController {
 				.body(ApiResponse.success("Version created successfully", response));
 	}
 
+	@Operation(summary = "Get all versions of a document")
 	@GetMapping("/{documentId}")
 	public ResponseEntity<ApiResponse<List<DocumentVersionResponse>>> getAllVersions(@PathVariable UUID documentId) {
 		log.info("GET /api/v1/versions/{}", documentId);
@@ -49,6 +54,7 @@ public class DocumentVersionController {
 		return ResponseEntity.ok(ApiResponse.success("Versions fetched successfully", response));
 	}
 
+	@Operation(summary = "Get latest version of a document")
 	@GetMapping("/{documentId}/latest")
 	public ResponseEntity<ApiResponse<DocumentVersionResponse>> getLatestVersion(@PathVariable UUID documentId) {
 		log.info("GET /api/v1/versions/{}/latest", documentId);
@@ -56,6 +62,7 @@ public class DocumentVersionController {
 		return ResponseEntity.ok(ApiResponse.success("Latest version fetched successfully", response));
 	}
 
+	@Operation(summary = "Get specific version by ID")
 	@GetMapping("/detail/{versionId}")
 	public ResponseEntity<ApiResponse<DocumentVersionResponse>> getVersion(@PathVariable UUID versionId) {
 		log.info("GET /api/v1/versions/detail/{}", versionId);

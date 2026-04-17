@@ -19,10 +19,13 @@ import com.baalvion.ocrprocessing.dto.OcrJobResponse;
 import com.baalvion.ocrprocessing.exception.ApiResponse;
 import com.baalvion.ocrprocessing.service.OcrjobService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/ocr")
+@Tag(name = "OCR Processing", description = "APIs for OCR job management")
 public class OcrJobController {
 
 	private static final Logger log = LoggerFactory.getLogger(OcrJobController.class);
@@ -33,6 +36,7 @@ public class OcrJobController {
 		this.ocrJobService = ocrJobService;
 	}
 
+	@Operation(summary = "Submit a new OCR job")
 	@PostMapping("/process")
 	public ResponseEntity<ApiResponse<OcrJobResponse>> submitOcrJob(@Valid @RequestBody OcrJobRequest request) {
 		log.info("POST /api/v1/ocr/process");
@@ -41,6 +45,7 @@ public class OcrJobController {
 				.body(ApiResponse.success("OCR job submitted successfully", response));
 	}
 
+	@Operation(summary = "Get OCR job status")
 	@GetMapping("/status/{jobId}")
 	public ResponseEntity<ApiResponse<OcrJobResponse>> getJobStatus(@PathVariable UUID jobId) {
 		log.info("GET /api/v1/ocr/status/{}", jobId);
@@ -48,6 +53,7 @@ public class OcrJobController {
 		return ResponseEntity.ok(ApiResponse.success("OCR job status fetched successfully", response));
 	}
 
+	@Operation(summary = "Process an OCR job")
 	@PostMapping("/process/{jobId}")
 	public ResponseEntity<ApiResponse<OcrJobResponse>> processJob(@PathVariable UUID jobId) {
 		log.info("POST /api/v1/ocr/process/{}", jobId);
@@ -55,6 +61,7 @@ public class OcrJobController {
 		return ResponseEntity.ok(ApiResponse.success("OCR job processed successfully", response));
 	}
 
+	@Operation(summary = "Get all OCR jobs for a document")
 	@GetMapping("/document/{documentId}")
 	public ResponseEntity<ApiResponse<List<OcrJobResponse>>> getJobsByDocumentId(@PathVariable UUID documentId) {
 		log.info("GET /api/v1/ocr/document/{}", documentId);
