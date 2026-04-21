@@ -90,6 +90,13 @@
 			<version>0.11.5</version>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- Event Models -->
+		<dependency>
+			<groupId>com.baalvion</groupId>
+			<artifactId>event-models</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

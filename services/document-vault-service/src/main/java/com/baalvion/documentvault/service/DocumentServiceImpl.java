@@ -12,8 +12,10 @@ import com.baalvion.documentvault.domain.Document;
 import com.baalvion.documentvault.domain.DocumentStatus;
 import com.baalvion.documentvault.dto.DocumentRequest;
 import com.baalvion.documentvault.dto.DocumentResponse;
+import com.baalvion.documentvault.events.DocumentEventProducer;
 import com.baalvion.documentvault.exception.ResourceNotFoundException;
 import com.baalvion.documentvault.repository.DocumentRepository;
+import com.baalvion.events.DocumentUploadedEvent;
 
 @Service("documentService")
 public class DocumentServiceImpl implements DocumentService {
@@ -21,13 +23,13 @@ public class DocumentServiceImpl implements DocumentService {
 	private static final Logger log = LoggerFactory.getLogger(DocumentServiceImpl.class);
 
 	private final DocumentRepository documentRepository;
+	private final DocumentEventProducer eventProducer;
 
-	public DocumentServiceImpl(DocumentRepository documentRepository) {
-		super();
+	public DocumentServiceImpl(DocumentRepository documentRepository, DocumentEventProducer eventProducer) {
 		this.documentRepository = documentRepository;
+		this.eventProducer = eventProducer;
 	}
 
-	@Override
 	public DocumentResponse uploadDocument(DocumentRequest request) {
 		log.info("Uploading document: {}", request.getName());
 
@@ -36,7 +38,13 @@ public class DocumentServiceImpl implements DocumentService {
 				.build();
 
 		Document saved = documentRepository.save(document);
-		log.info("Document saved with documentId: {}", saved.getDocumentId());
+		log.info("Document saved with id: {}", saved.getDocumentId());
+
+		DocumentUploadedEvent event = DocumentUploadedEvent.builder().documentId(saved.getDocumentId())
+				.documentName(saved.getName()).documentType(saved.getType()).uploadedBy(saved.getUploadedBy())
+				.uploadedAt(saved.getCreatedAt()).build();
+
+		eventProducer.publishDocumentUploadedEvent(event);
 
 		return mapToResponse(saved);
 	}

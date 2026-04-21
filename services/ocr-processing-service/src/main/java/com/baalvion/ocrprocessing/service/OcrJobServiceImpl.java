@@ -9,10 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.baalvion.events.OcrCompletedEvent;
 import com.baalvion.ocrprocessing.domain.OcrJob;
 import com.baalvion.ocrprocessing.domain.OcrStatus;
 import com.baalvion.ocrprocessing.dto.OcrJobRequest;
 import com.baalvion.ocrprocessing.dto.OcrJobResponse;
+import com.baalvion.ocrprocessing.events.OcrEventProducer;
 import com.baalvion.ocrprocessing.exception.ResourceNotFoundException;
 import com.baalvion.ocrprocessing.repository.OcrJobRepository;
 
@@ -22,9 +24,11 @@ public class OcrJobServiceImpl implements OcrjobService {
 	private static final Logger log = LoggerFactory.getLogger(OcrJobServiceImpl.class);
 
 	private final OcrJobRepository ocrJobRepository;
+	private final OcrEventProducer ocrEventProducer;
 
-	public OcrJobServiceImpl(OcrJobRepository ocrJobRepository) {
+	public OcrJobServiceImpl(OcrJobRepository ocrJobRepository, OcrEventProducer ocrEventProducer) {
 		this.ocrJobRepository = ocrJobRepository;
+		this.ocrEventProducer = ocrEventProducer;
 	}
 
 	@Override
@@ -50,12 +54,11 @@ public class OcrJobServiceImpl implements OcrjobService {
 		return mapToResponse(job);
 	}
 
-	@Override
 	public OcrJobResponse processJob(UUID jobId) {
-		log.info("Processing OCR job with jobId: {}", jobId);
+		log.info("Processing OCR job with id: {}", jobId);
 
 		OcrJob job = ocrJobRepository.findByOcrjobId(jobId)
-				.orElseThrow(() -> new ResourceNotFoundException("OCR job", "jobId", jobId));
+				.orElseThrow(() -> new ResourceNotFoundException("OcrJob", "jobId", jobId));
 
 		job.setStatus(OcrStatus.PROCESSING);
 		ocrJobRepository.save(job);
@@ -65,7 +68,13 @@ public class OcrJobServiceImpl implements OcrjobService {
 		job.setCompletedAt(LocalDateTime.now());
 
 		OcrJob completed = ocrJobRepository.save(job);
-		log.info("OCR job completed with jobId: {}", jobId);
+
+		OcrCompletedEvent event = OcrCompletedEvent.builder().jobId(completed.getOcrjobId())
+				.documentId(completed.getDocumentId()).result(completed.getResult())
+				.status(completed.getStatus().name()).completedAt(completed.getCompletedAt()).build();
+
+		ocrEventProducer.publishOcrCompletedEvent(event);
+		log.info("OCR job completed and event published for id: {}", jobId);
 
 		return mapToResponse(completed);
 	}
