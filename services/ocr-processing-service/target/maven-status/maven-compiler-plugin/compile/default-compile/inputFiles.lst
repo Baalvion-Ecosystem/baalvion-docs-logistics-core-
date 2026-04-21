@@ -1,0 +1,15 @@
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\domain\OcrStatus.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\controller\OcrJobController.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\service\OcrjobService.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\OcrProcessingApplication.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\dto\OcrJobResponse.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\exception\ErrorResponse.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\domain\OcrJob.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\repository\OcrJobRepository.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\exception\ApiResponse.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\exception\ResourceNotFoundException.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\exception\GlobalExceptionHandler.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\service\OcrJobServiceImpl.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\config\SwaggerConfig.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\security\SecurityConfig.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\ocr-processing-service\src\main\java\com\baalvion\ocrprocessing\dto\OcrJobRequest.java

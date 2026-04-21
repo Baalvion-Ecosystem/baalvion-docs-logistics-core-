@@ -1,0 +1,15 @@
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\security\SecurityConfig.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\DocumentGenerationApplication.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\dto\DocumentGenerationRequest.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\exception\GlobalExceptionHandler.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\config\SwaggerConfig.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\controller\DocumentGenerationController.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\exception\ErrorResponse.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\dto\DocumentGenerationResponse.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\repository\DocumentTemplateRepository.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\domain\DocumentTemplate.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\domain\TemplateStatus.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\service\DocumentGenerationService.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\exception\ApiResponse.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\exception\ResourceNotFoundException.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\service\DocumentGenerationServiceImpl.java
