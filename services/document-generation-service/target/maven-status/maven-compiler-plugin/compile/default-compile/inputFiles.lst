@@ -1,3 +1,4 @@
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\security\JwtService.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\security\SecurityConfig.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\DocumentGenerationApplication.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\dto\DocumentGenerationRequest.java
@@ -12,4 +13,5 @@ D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-serv
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\service\DocumentGenerationService.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\exception\ApiResponse.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\exception\ResourceNotFoundException.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\security\JwtAuthenticationFilter.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-generation-service\src\main\java\com\baalvion\documentgeneration\service\DocumentGenerationServiceImpl.java

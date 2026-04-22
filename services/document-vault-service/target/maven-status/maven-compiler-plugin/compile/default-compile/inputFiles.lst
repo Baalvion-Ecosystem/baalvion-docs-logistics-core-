@@ -6,10 +6,14 @@ D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\s
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\exception\ErrorResponse.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\controller\DocumentController.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\exception\ResourceNotFoundException.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\security\JwtService.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\service\DocumentService.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\config\KafkaConfig.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\config\SwaggerConfig.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\events\DocumentEventProducer.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\domain\Document.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\dto\DocumentRequest.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\dto\DocumentResponse.java
+D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\security\JwtAuthenticationFilter.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\security\SecurityConfig.java
 D:\Baalvion_Task\baalvion-docs-logistics-core-\services\document-vault-service\src\main\java\com\baalvion\documentvault\service\DocumentServiceImpl.java
