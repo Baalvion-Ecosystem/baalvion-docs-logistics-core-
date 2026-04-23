@@ -6,10 +6,10 @@ Enterprise-grade, event-driven platform for global trade document management and
 
 ## Architecture
 
-- **Style:** Microservices + Event-Driven (Apache Kafka)
-- **Design:** Domain-Driven Design (DDD)
-- **Security:** JWT Authentication + RBAC
-- **Observability:** ELK + Prometheus + Grafana + OpenTelemetry
+- Style: Microservices + Event-Driven (Apache Kafka)
+- Design: Domain-Driven Design (DDD)
+- Security: JWT Authentication + RBAC
+- Observability: ELK + Prometheus + Grafana + OpenTelemetry
 
 ---
 
